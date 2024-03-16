@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeRoutine.com</title>
+    <style>
+        .font1 {
+        font-family: "Madimi One", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .info1:hover {
+            filter: brightness(70%);
+        }
+        .button2 {
+            width: 120px;
+            height: 50px;
+            margin-left: 5px;
+            margin-bottom: 5px;
+            background-color: #2496D7;
+            border: none;
+            border-radius: 15px;
+            color:white;
+        }
+        .button2:hover {
+            filter: brightness(70%);
+        }
+    </style>
+</head>
+<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap" rel="stylesheet">
+<div style="width: 100%;display: flex;justify-content: center;align-items: center;"><a class="font1" style="font-size: 50px;">TimeRoutine.com</a></div>
+<br><br>
+<div style="width: 100%;display: flex;">
+    <a class="font1" style="font-size: 30px;">Work:</a><input type="number" style="width:50px;margin-left: 5px;border: 2px solid black;border-radius: 15px;font-size: 20px;" class="font1" value="25" id="inp1" >
+    <a class="font1" style="font-size: 30px;margin-left: 5px;">FreeTime:</a><input type="number" style="width:50px;margin-left: 5px;border: 2px solid black;border-radius: 15px;font-size: 20px;" class="font1" value="25" id="inp2">
+</div><br>
+<div style="width: 100%;display: flex;">
+    <a class="font1" style="font-size: 30px;">Sleep:</a><input type="number" style="width:50px;margin-left: 5px;border: 2px solid black;border-radius: 15px;font-size: 20px;" class="font1" value="25" id="inp3">
+    <a class="font1" style="font-size: 30px;margin-left: 5px;">Others:</a>
+    <input type="number" style="width:50px;margin-left: 5px;border: 2px solid black;border-radius: 15px;font-size: 20px;" class="font1" value="25" id="inp4">
+    <div style="display: block;"><img src="https://tse2.mm.bing.net/th?id=OIP.Q5oJvKnydHsbnhVLU2icOgHaHa&pid=Api&P=0&h=180" height="40" width="40" class="info1" onmouseover="i1o()" onmouseout="i1c()"><br>
+    <div style="position: absolute;background-color: beige;width:190px;height: 100px;border-radius: 15px;visibility: hidden;z-index: 1;" id="info1"><br><div style="width: 100%;height:100%;margin-left: 5px;"><a class="font1">Means other things we do in life like bathing,eating etc.</a></div></div>
+    </div>
+</div>
+<br><button onclick="sicf()" class="button2 font1">See in chart form</button>
+<br><br><div style="width: 100%;display: flex;justify-content: center;"><a class="font1" style="font-size: 30px;">Pie chart form</a></div>
+<div style="width: 100%;display:flex;justify-content:center;"><div id="routine" style="width:100%; max-width:600px; height:500px;"></div></div>
+<div style="width: 100%;display: flex;justify-content: center;"><a class="font1" style="font-size: 30px;">Bar chart form</a></div>
+<div style="width:100%;display: flex;justify-content: center;"><div id="routine2" style="width:100%; max-width:600px; height:500px;"></div></div><br><br>
+<p class="font1" style="font-size: 40px;text-align: center;">Custom time select</p>
+<button onclick="sc1()" class="button2 font1">Weekend</button><button onclick="sc2()" class="button2 font1">Working day</button><button onclick="sc3()" class="button2 font1">Normal day</button><button onclick="sc4()" class="button2 font1">topper routine</button><br><br>
+<p class="font1">Hi this project is made by <span style="color:blue">Sarthak Raymondal.</span>The project may have some inaccurate things,so don't mind<br>Chart credit:<br>google chart(got to know from w3schools)<br>Inspiration:<br>Neel.com</p>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+    google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+    var check1 = 0
+    var input1 , pd1 = parseFloat(document.getElementById("inp1").value);
+    var input2 , pd2= parseFloat(document.getElementById("inp2").value);
+    var input3 , pd3= parseFloat(document.getElementById("inp3").value);
+    var input4 , pd4= parseFloat(document.getElementById("inp4").value);
+    function i1o() {
+       document.getElementById("info1").style.visibility = "visible";
+    }
+    function i1c() {
+       document.getElementById("info1").style.visibility = "hidden";
+    }
+function sicf() {
+    input1= parseFloat(document.getElementById("inp1").value);
+    input2= parseFloat(document.getElementById("inp2").value);
+    input3= parseFloat(document.getElementById("inp3").value);
+    input4= parseFloat(document.getElementById("inp4").value);
+    check1 = input1 + input2 + input3 + input4;
+    if (check1 === 100 || check1 < 100) {
+        pd1 = input1;
+        pd2 = input2;
+        pd3 = input3;
+        pd4 = input4;
+        updatechart();
+    }
+    else{
+        document.getElementById("inp1").value = pd1
+        document.getElementById("inp2").value = pd2
+        document.getElementById("inp3").value = pd3
+        document.getElementById("inp4").value = pd4
+    }
+}
+function updatechart() {
+// Set Data
+const data = google.visualization.arrayToDataTable([
+  ['routine', 'Mhl'],
+  ['Work💼',input1],
+  ['FreeTime😃',input2],
+  ['Sleep😴',input3],
+  ['Others👾',input4]
+]);
+
+// Set Options
+const options = {
+  title:'*this chart design and script is not done by me'
+};
+
+// Draw
+const chart = new google.visualization.PieChart(document.getElementById('routine'));
+chart.draw(data, options);
+
+hr1 = input1/100 * 24
+hr2 = input2/100 * 24
+hr3 = input3/100 * 24
+hr4 = input4/100 * 24
+// Set Data
+const data1 = google.visualization.arrayToDataTable([
+  ['Contry', 'Hrs'],
+  ['Work💼',hr1],
+  ['FreeTime😃',hr2],
+  ['Sleep😴',hr3],
+  ['Others👾',hr4]
+]);
+
+// Set Options
+const options1 = {
+  title:'*this chart design and script is not done by me'
+};
+
+// Draw
+const chart1 = new google.visualization.BarChart(document.getElementById('routine2'));
+chart1.draw(data1, options1);
+}
+function sc1() {
+    window.scrollTo(0,0)
+    input1 = pd1 = document.getElementById("inp1").value = 5
+    input1 = pd2 = document.getElementById("inp2").value = 35 
+    input1 = pd3 =document.getElementById("inp3").value = 10
+    input1 = pd3 =document.getElementById("inp4").value = 40
+}
+function sc2() {
+    window.scrollTo(0,0)
+    input1 = pd1 = document.getElementById("inp1").value = 40
+    input1 = pd2 = document.getElementById("inp2").value = 10
+    input1 = pd3 =document.getElementById("inp3").value = 10
+    input1 = pd3 =document.getElementById("inp4").value = 40
+}
+function sc3() {
+    window.scrollTo(0,0)
+    input1 = pd1 = document.getElementById("inp1").value = 26
+    input1 = pd2 = document.getElementById("inp2").value = 24
+    input1 = pd3 =document.getElementById("inp3").value = 10
+    input1 = pd3 =document.getElementById("inp4").value = 40
+}
+function sc4() {
+    window.scrollTo(0,0)
+    input1 = pd1 = document.getElementById("inp1").value = 47
+    input1 = pd2 = document.getElementById("inp2").value = 3
+    input1 = pd3 =document.getElementById("inp3").value = 10
+    input1 = pd3 =document.getElementById("inp4").value = 40
+}
+</script>
+</body>
+</html>
